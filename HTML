@@ -73,3 +73,64 @@
   let salesReps = [];
 
   class SalesRep {
+    <script>
+    // main inputs
+    let operationsSalary = 0;
+    let overhead = 0;
+    let metalEquipmentCostPerMonth = 0;
+    let salesRepSalary = 0;
+    let teamLeadSalary = 0;
+    let profitMargin = 0;
+
+    // sales rep inputs and outputs
+    let salesReps = [];
+
+    class SalesRep {
+      constructor(amountSold, overheadPercentRemoved, repShare) {
+        this.amountSold = amountSold;
+        this.overheadPercentRemoved = overheadPercentRemoved;
+        this.repShare = repShare;
+        this.salesRepCommission = (amountSold - (amountSold * overheadPercentRemoved)) * repShare;
+        this.takeHome = (amountSold * profitMargin) - this.salesRepCommission;
+      }
+
+      static addSalesRep(amountSold, overheadPercentRemoved, repShare) {
+        salesReps.push(new SalesRep(amountSold, overheadPercentRemoved, repShare));
+      }
+    }
+
+    // main outputs
+    function calculateMonthlyCost() {
+      let totalCost = operationsSalary + overhead + metalEquipmentCostPerMonth + salesRepSalary + teamLeadSalary;
+      for (let rep of salesReps) {
+        totalCost += rep.salesRepCommission;
+      }
+      return totalCost;
+    }
+
+    function calculateTakeHome() {
+      let totalSales = 0;
+      for (let rep of salesReps) {
+        totalSales += rep.amountSold;
+      }
+      return totalSales * profitMargin - calculateMonthlyCost();
+    }
+
+    // update inputs and outputs
+    function updateValues() {
+      operationsSalary = document.getElementById("operations-salary").value;
+      overhead = document.getElementById("overhead").value;
+      metalEquipmentCostPerMonth = document.getElementById("metal-equipment-cost-per-month").value;
+      salesRepSalary = document.getElementById("sales-rep-salary").value;
+      teamLeadSalary = document.getElementById("team-lead-salary").value;
+      profitMargin = document.getElementById("profit-margin").value / 100;
+
+      for (let i = 0; i < salesReps.length; i++) {
+        let rep = salesReps[i];
+        rep.amountSold = document.getElementById("sales-rep-" + i + "-amount-sold").value;
+        rep.overheadPercentRemoved = document.getElementById("sales-rep-" + i + "-overhead-percent-removed").value / 100;
+        rep.repShare = document.getElementById("sales-rep-" + i + "-rep-share").value / 100;
+        rep.salesRepCommission = (rep.amountSold - (rep.amountSold * rep.overheadPercentRemoved)) * rep.repShare;
+        rep.takeHome = (rep.amountSold * profitMargin) - rep.salesRepCommission;
+        document.getElementById("sales-
+
