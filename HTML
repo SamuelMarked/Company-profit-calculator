@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sales Calculator</title>
+</head>
+<body>
+
+<!-- main inputs -->
+<div>
+  <label for="operations-salary">Operations Salary:</label>
+  <input type="number" id="operations-salary" onchange="updateValues()">
+</div>
+<div>
+  <label for="overhead">Overhead:</label>
+  <input type="number" id="overhead" onchange="updateValues()">
+</div>
+<div>
+  <label for="metal-equipment-cost-per-month">Metal Equipment Cost per Month:</label>
+  <input type="number" id="metal-equipment-cost-per-month" onchange="updateValues()">
+</div>
+<div>
+  <label for="sales-rep-salary">Sales Rep Salary:</label>
+  <input type="number" id="sales-rep-salary" onchange="updateValues()">
+</div>
+<div>
+  <label for="team-lead-salary">Team Lead Salary:</label>
+  <input type="number" id="team-lead-salary" onchange="updateValues()">
+</div>
+<div>
+  <label for="profit-margin">Profit Margin (%):</label>
+  <input type="number" id="profit-margin" min="0" max="100" onchange="updateValues()">
+</div>
+
+<!-- sales rep inputs and outputs -->
+<table id="sales-reps">
+  <tr>
+    <th>Amount Sold</th>
+    <th>Overhead Percent Removed</th>
+    <th>Rep Share</th>
+    <th>Sales Rep Commission</th>
+    <th>Take Home</th>
+  </tr>
+  <tr id="sales-rep-template" style="display: none;">
+    <td><input type="number" onchange="updateValues()"></td>
+    <td><input type="number" min="0" max="100" onchange="updateValues()"></td>
+    <td><input type="number" min="0" max="100" onchange="updateValues()"></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<button onclick="addSalesRep()">Add Sales Rep</button>
+
+<!-- main outputs -->
+<div>
+  <label>Monthly Total Cost:</label>
+  <span id="monthly-total-cost"></span>
+</div>
+<div>
+  <label>Take Home:</label>
+  <span id="take-home"></span>
+</div>
+
+<script>
+  // main inputs
+  let operationsSalary = 0;
+  let overhead = 0;
+  let metalEquipmentCostPerMonth = 0;
+  let salesRepSalary = 0;
+  let teamLeadSalary = 0;
+  let profitMargin = 0;
+
+  // sales rep inputs and outputs
+  let salesReps = [];
+
+  class SalesRep {
