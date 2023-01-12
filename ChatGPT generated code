@@ -1,0 +1,32 @@
+# main inputs
+operations_salary = 0
+overhead = 0
+metal_equipment_cost_per_month = 0
+sales_rep_salary = 0
+team_lead_salary = 0
+profit_margin = 0
+
+# sales rep inputs and outputs
+sales_reps = []
+
+class SalesRep:
+    def __init__(self, amount_sold, overhead_percent_removed, rep_share):
+        self.amount_sold = amount_sold
+        self.overhead_percent_removed = overhead_percent_removed
+        self.rep_share = rep_share
+        self.sales_rep_commission = (amount_sold - (amount_sold * overhead_percent_removed)) * rep_share
+        self.take_home = (amount_sold * profit_margin) - self.sales_rep_commission
+
+    def add_sales_rep(amount_sold, overhead_percent_removed, rep_share):
+        sales_reps.append(SalesRep(amount_sold, overhead_percent_removed, rep_share))
+
+# main outputs
+def calculate_monthly_cost():
+    total_cost = operations_salary + overhead + metal_equipment_cost_per_month + sales_rep_salary + team_lead_salary
+    for rep in sales_reps:
+        total_cost += rep.sales_rep_commission
+    return total_cost
+
+def calculate_take_home():
+    total_sales = 0
+    for rep
